@@ -23,7 +23,7 @@ create table te_tenant (
   is_default                char(1)             not null default 'N'	                comment '默认租户（Y是 N否）',
   del_flag		            tinyint             not null default 0                      comment '删除标志（0正常 1删除）',
   primary key (id)
-) engine = innodb comment = '租户信息表';
+) engine = innodb comment = '租户信息表' DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- 初始化-租户信息表数据
@@ -51,7 +51,7 @@ create table te_strategy (
   is_default                char(1)             not null default 'N'	                comment '默认策略（Y是 N否）',
   del_flag		            tinyint             not null default 0                      comment '删除标志（0正常 1删除）',
   primary key (id)
-) engine = innodb comment = '数据源策略表';
+) engine = innodb comment = '数据源策略表' DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- 初始化-策略信息表数据
@@ -82,7 +82,7 @@ create table te_source (
   is_default                char(1)             not null default 'N'	                comment '默认数据源（Y是 N否）',
   del_flag		            tinyint             not null default 0                      comment '删除标志（0正常 1删除）',
   primary key (id)
-) engine = innodb comment = '数据源表';
+) engine = innodb comment = '数据源表' DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- 初始化-数据源表数据 | 这条数据为我的基础库，实际使用时调整成自己的库即可
@@ -114,7 +114,7 @@ create table sys_module (
   del_flag		            tinyint             not null default 0                      comment '删除标志（0正常 1删除）',
   tenant_id		            bigint	            not null                                comment '租户Id',
   primary key (id)
-) engine = innodb comment = '模块信息表';
+) engine = innodb comment = '模块信息表' DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 # ----------------------------
 # 初始化-模块信息表数据
@@ -167,7 +167,7 @@ create table sys_menu (
   tenant_id                 bigint              not null                                comment '租户Id',
   primary key (id),
   unique (name)
-) engine = innodb comment = '菜单权限表';
+) engine = innodb comment = '菜单权限表' DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 insert into sys_menu (id, parent_id, name, title, ancestors, path, frame_src, component, param_path, transition_name, ignore_route, is_cache, is_affix, is_disabled, frame_type, menu_type, hide_tab, hide_menu, hide_breadcrumb, hide_children, hide_path_for_children, dynamic_level, real_path, perms, icon, sort, remark, is_common, is_default, module_id, tenant_id)
 values (0, 0, 'd346c7dbf265416086dbe2951a7465b2', '默认菜单', '', 'default', null, null, null, null, 'N', 'N', 'N', 'N', '0', 'M', '0', '0', '0', '0', '0', 1, null, null, '', 1, '目录:默认菜单', '0', 'Y', 1, 0),
@@ -329,7 +329,7 @@ create table sys_dict_type (
   update_by                 bigint              default null                            comment '更新者',
   update_time               datetime            on update current_timestamp             comment '更新时间',
   primary key (id)
-) engine = innodb auto_increment = 100 comment = '字典类型表';
+) engine = innodb auto_increment = 100 comment = '字典类型表' DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 insert into sys_dict_type (name, code, remark)
 values ( '用户性别', 'sys_user_sex', '用户性别列表'),
@@ -382,7 +382,7 @@ create table sys_dict_data (
   update_by                 bigint              default null                            comment '更新者',
   update_time               datetime            on update current_timestamp             comment '更新时间',
   primary key (id)
-) engine = innodb auto_increment = 1 comment = '字典数据表';
+) engine = innodb auto_increment = 1 comment = '字典数据表' DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 insert into sys_dict_data (sort, label, value, code, css_class, list_class, is_default, remark)
 values (1, '男', '0', 'sys_user_sex', '', '', 'Y', '性别男'),
@@ -531,7 +531,7 @@ create table sys_config (
   update_by                 bigint              default null                            comment '更新者',
   update_time               datetime            on update current_timestamp             comment '更新时间',
   primary key (id)
-) engine = innodb comment = '参数配置表';
+) engine = innodb comment = '参数配置表' DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 insert into sys_config (id, name, code, value, type, remark)
 values (1, '主框架页-默认皮肤样式名称',           'sys.index.skinName',               'skin-blue',       'Y',    '蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow'),
@@ -561,7 +561,7 @@ create table sys_job (
   del_flag		            tinyint             not null default 0                      comment '删除标志(0正常 1删除)',
   tenant_id		            bigint	            not null                                comment '租户Id',
   primary key (id)
-) engine = innodb auto_increment = 100 comment = '定时任务调度表';
+) engine = innodb auto_increment = 100 comment = '定时任务调度表' DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 insert into sys_job (id, name, job_group, invoke_target, invoke_tenant, cron_expression, misfire_policy, concurrent, status, tenant_id)
 values (1, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams',   '1L, \'Y\', \'slave\'',     '0/10 * * * * ?', '3', '1', '1', 1),
@@ -587,7 +587,7 @@ create table sys_job_log (
   del_flag		            tinyint             not null default 0                      comment '删除标志(0正常 1删除)',
   tenant_id		            bigint	            not null                                comment '租户Id',
   primary key (id)
-) engine = innodb comment = '定时任务调度日志表';
+) engine = innodb comment = '定时任务调度日志表' DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- 13、代码生成业务表
@@ -616,7 +616,7 @@ create table gen_table (
   update_by                 bigint              default null                            comment '更新者',
   update_time               datetime            on update current_timestamp             comment '更新时间',
   primary key (id)
-) engine=innodb auto_increment=1 comment = '代码生成业务表';
+) engine=innodb auto_increment=1 comment = '代码生成业务表' DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- 14、代码生成业务表字段
@@ -652,4 +652,4 @@ create table gen_table_column (
   update_by                 bigint              default null                            comment '更新者',
   update_time               datetime            on update current_timestamp             comment '更新时间',
   primary key (id)
-) engine=innodb auto_increment=1 comment = '代码生成业务表字段';
+) engine=innodb auto_increment=1 comment = '代码生成业务表字段' DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
